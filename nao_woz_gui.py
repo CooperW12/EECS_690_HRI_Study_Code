@@ -31,23 +31,8 @@ def main():
         print(f"Failed to load services: {e}")
         sys.exit(1)
 
-    def standUp():
-            posture_service.goToPosture("StandInit", 0.5)
-
     def rest():
             motion_service.rest()
-
-    def nod():
-        motion_service.setStiffnesses("Head", 1.0)
-        motion_service.setAngles("HeadPitch", .4, .4)
-        time.sleep(.5)
-        motion_service.setAngles("HeadPitch", -.2, .4)
-        time.sleep(.5)
-        motion_service.setAngles("HeadPitch", .4, .4)
-        time.sleep(.5)
-        motion_service.setAngles("HeadPitch", 0, .4)
-        time.sleep(.5)
-        motion_service.setStiffnesses("Head", 0.0)
 
     def thinkingEyes():
         leds_service.on('FaceLeds')
@@ -58,28 +43,14 @@ def main():
         leds_service.on('FaceLeds')
         leds_service.fadeRGB("FaceLeds", 0x0000FF00, 0.5)
         time.sleep(2)
-        leds_service.fadeRGB("FaceLeds", 0x000000FF, 0.5)
-
-    def greetStanding():
-        motion_service.setStiffnesses("RArm", 0.5)
-        motion_service.setAngles("RShoulderRoll", -1, .3)
-        motion_service.setAngles("RShoulderPitch", -1, .3)
-        time.sleep(2.0)
-        motion_service.setAngles("RShoulderRoll", 0, .3)
-        motion_service.setAngles("RShoulderPitch", 0, .3)
-        time.sleep(2.0)
-        motion_service.setStiffnesses("RArm", 1.0)
-        
-
-    def sayCustom(text):
-        tts.say(text.widget.get()) 
+        leds_service.fadeRGB("FaceLeds", 0x000000FF, 0.5) 
 
     def say(text):
          tts.say(text)
 
     root = tk.Tk()
     root.minsize(1000,500)
-    root.title("Lab 2 NAO WOZ GUI")
+    root.title("NAO WOZ GUI")
 
     talking_frame = tk.Frame(root, width=100, height=200, borderwidth=1, relief="solid")
     talking_frame.pack(padx=5, pady=5, side="left", fill="both", expand=True)
@@ -92,7 +63,7 @@ def main():
     introButton = tk.Button(
         talking_frame,
         text = "Introduction",
-        command = lambda: say("Hello my name is Nao, lets take turns sharing 3 good things that happened to us today."),
+        command = lambda: say("Hello my name is Nao"),
     )
     introButton.pack(padx=5, pady=5)
 
@@ -102,20 +73,6 @@ def main():
         command = lambda: say("My first good thing is that I get to talk with someone today! Now, your turn!"),
     )
     goodOneButton.pack(padx=5, pady=5)
-
-    goodTwoButton = tk.Button(
-        talking_frame,
-        text = "Good thing #2",
-        command = lambda: say("My second good thing is that my motors aren't overheatting!"),
-    )
-    goodTwoButton.pack(padx=5, pady=5)
-    
-    goodThreeButton = tk.Button(
-        talking_frame,
-        text = "Good thing #3",
-        command = lambda: say("My last good thing is that it is almost the weekend!"),
-    )
-    goodThreeButton.pack(padx=5, pady=5)
 
     conclusionButton = tk.Button(
         talking_frame,
@@ -136,50 +93,23 @@ def main():
     )
     submitButton.pack(side="left")
 
-    motion_frame = tk.Frame(root, width=200, height=400, borderwidth=1, relief="solid")
-    motion_frame.pack(padx=5, pady=5, side="left", fill="both", expand=True)
+    eye_frame = tk.Frame(root, width=200, height=400, borderwidth=1, relief="solid")
+    eye_frame.pack(padx=5, pady=5, side="left", fill="both", expand=True)
 
     tk.Label(
-        motion_frame,
-        text="Moving",
+        eye_frame,
+        text="Eyes",
     ).pack(padx=5, pady=5)
-    standButton = tk.Button(
-        motion_frame,
-        text = "Stand Up",
-        command = standUp,
-    )
-    standButton.pack(padx=5, pady=5)
-
-    restButton = tk.Button(
-        motion_frame,
-        text = "Rest",
-        command = rest,
-    )
-    restButton.pack(padx=5, pady=5)
-
-    nodButton = tk.Button(
-        motion_frame,
-        text = "Nod",
-        command = nod,
-    )
-    nodButton.pack(padx=5, pady=5)
-
-    greetStandingButton = tk.Button(
-        motion_frame,
-        text = "Greet (Standing)",
-        command = greetStanding,
-    )
-    greetStandingButton.pack(padx=5, pady=5)
 
     thinkingEyesButton = tk.Button(
-        motion_frame,
+        eye_frame,
         text = "Thinking Eyes",
         command = thinkingEyes,
     )
     thinkingEyesButton.pack(padx=5, pady=5)
 
     happyEyesButton = tk.Button(
-        motion_frame,
+        eye_frame,
         text = "Happy Eyes",
         command = happyEyes,
     )
