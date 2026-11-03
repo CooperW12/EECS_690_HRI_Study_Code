@@ -45,3 +45,9 @@ python3 nao_woz_gui.py NAO_IP_ADDRESS
 
 
 ## Demo Video
+
+
+https://github.com/user-attachments/assets/ef73730e-3cd9-4e3d-b900-40c53db9fca2
+
+
+
